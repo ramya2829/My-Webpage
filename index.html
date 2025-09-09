@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio – RAMYASHREE BALASUBRAMANIAN</title>
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.4s ease; }
+
+    /* Body & Dark Mode */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+      animation: fadeInBody 1s ease-in-out;
+      position: relative;
+    }
+    body.dark {
+      background: #1c1c1c;
+      color: #f5f5f5;
+    }
+
+    @keyframes fadeInBody { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Particle background */
+    #particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #0b4f6c, #083a52);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
+    header.dark { background: #111; }
+
+    header h1 {
+      margin-bottom: 10px;
+      transition: transform 0.3s, text-shadow 0.4s;
+      animation: glow 2s infinite alternate;
+    }
+    header h1:hover { transform: scale(1.05); color: #ffe082; }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #fff, 0 0 10px #0b4f6c; }
+      to { text-shadow: 0 0 20px #ff7043, 0 0 30px #ff7043; }
+    }
+
+    /* Typing effect */
+    #tagline {
+      font-size: 1.1rem;
+      border-right: 2px solid #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+      width: 0;
+      animation: typing 5s steps(50, end) forwards, blink 0.7s step-end infinite;
+    }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+    @keyframes blink { 50% { border-color: transparent; } }
+
+    /* Dark mode button */
+    #darkToggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 8px 14px;
+      background: #0b4f6c;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.3s, background 0.3s;
+    }
+    #darkToggle:hover { transform: scale(1.1); background: #083a52; }
+
+    /* Layout */
+    .container {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+
+    .sidebar { flex: 1; max-width: 300px; display: flex; flex-direction: column; gap: 20px; }
+    .main { flex: 2; display: flex; flex-direction: column; gap: 20px; }
+
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s, background 0.4s;
+      animation: fadeInUp 1s ease;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+    body.dark .card { background: #2a2a2a; border-color: #444; }
+
+    @keyframes fadeInUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .profile-pic {
+      display: block;
+      margin: 0 auto 12px;
+      width: 120px; height: 120px;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .profile-pic:hover { transform: scale(1.1); box-shadow: 0 4px 18px rgba(0,0,0,0.4); cursor: pointer; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    table th, table td { border: 1px solid #ddd; padding: 8px; text-align: left; transition: background 0.3s; }
+    table tr:hover td { background: #e3f2fd; }
+    body.dark table tr:hover td { background: #444; }
+
+    progress { width: 100%; height: 10px; border-radius: 5px; overflow: hidden; }
+    progress:hover { box-shadow: 0 0 8px #0b4f6c; cursor: pointer; }
+
+    footer { background: #0b4f6c; text-align: center; padding: 12px; margin-top: 20px; color: #fff; transition: background 0.3s, letter-spacing 0.3s; }
+    footer:hover { background: #083a52; letter-spacing: 1px; }
+    body.dark footer { background: #111; color: #f5f5f5; }
+
+    a { color: #0b4f6c; text-decoration: none; transition: color 0.3s; }
+    a:hover { color: #ff7043; text-decoration: underline; }
+
+    .alert-link {
+      color: #fff; background: #0b4f6c; padding: 6px 12px; border-radius: 6px; display: inline-block;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .alert-link:hover { background: #083a52; transform: scale(1.05); box-shadow: 0 0 12px #0b4f6c; color: #fff; }
+  </style>
+</head>
+<body>
+  <!-- Dark Mode Toggle Button -->
+  <button id="darkToggle">🌙 Dark Mode</button>
+
+  <!-- Particle Background -->
+  <canvas id="particles"></canvas>
+
+  <!-- Header -->
+  <header>
+    <h1>RAMYASHREE BALASUBRAMANIAN</h1>
+    <p id="tagline">Aspiring Software Developer • AI/ML Explorer • Problem Solver</p>
+  </header>
+
+  <!-- Main container -->
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="card">
+        <img src="Ramya.jpeg" alt="Profile photo" class="profile-pic" onclick="alert('Hello! I am Ramyashree Balasubramanian 🚀')">
+        <h2>About Me</h2>
+        <p>I’m a 3rd-year IT student passionate about AI/ML, Cloud, and Full-Stack Development. My goal is to become a Software Developer at Google Singapore 🌏.</p>
+        <p><strong>Location:</strong> Chennai, India</p>
+        <p><strong>Currently:</strong> Learning Java, AI/ML, Cloud</p>
+        <p><strong>Role:</strong> Hackathon Enthusiast & Google Aspirant</p>
+      </div>
+      <div class="card">
+        <h3>Contact</h3>
+        <p><strong>Phone:</strong> +91 8807180128</p>
+        <p><strong>Email:</strong> <a href="mailto:ramyashree2812@gmail.com">ramyashree2812@gmail.com</a></p>
+        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/ramyashreebalasubramanian" target="_blank">linkedin.com/in/ramyashreebalasubramanian</a></p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/ramya2829" target="_blank">github.com/ramya2829</a></p>
+      </div>
+      <div class="card">
+        <h3>Skills</h3>
+        <ul>
+          <li>Java, HTML, CSS, JavaScript</li>
+          <li>Spring Boot & Web Development</li>
+          <li>AI/ML & Data Science in Python</li>
+          <li>Cloud Computing (AWS)</li>
+          <li>UI/UX Design</li>
+        </ul>
+        <h4>Skill Levels</h4>
+        <p>Java: <progress value="80" max="100"></progress></p>
+        <p>HTML/CSS: <progress value="90" max="100"></progress></p>
+        <p>AI/ML: <progress value="85" max="100"></progress></p>
+        <p>Cloud: <progress value="50" max="100"></progress></p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <section class="main">
+      <div class="card">
+        <h2>Projects</h2>
+        <table>
+          <caption>Highlighted Projects</caption>
+          <tr>
+            <th>Project</th>
+            <th>Description</th>
+            <th>Tech</th>
+          </tr>
+          <tr>
+            <td>Walmart Smart Mirror</td>
+            <td>AI stylist with virtual try-on, outfit recommendations, and instant checkout.</td>
+            <td>AI, Java, Web</td>
+          </tr>
+          <tr>
+            <td>Night Safety Navigator</td>
+            <td>Women’s safety platform with live travel updates, OTP-based cab security.</td>
+            <td>Java, Django</td>
+          </tr>
+          <tr>
+            <td>AI Based Email Generator</td>
+            <td>Generates emails based on few inputs.</td>
+            <td>AI, APIs</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Experience</h3>
+        <dl>
+          <dt><strong>Hackathon Projects</strong></dt>
+          <dd>Participated in multiple hackathons focusing on AI and safety solutions.</dd>
+          <dt><strong>Student Projects</strong></dt>
+          <dd>Built academic projects combining AI, Cloud, and Full-Stack development.</dd>
+        </dl>
+      </div>
+
+      <div class="card">
+        <h3>Education</h3>
+        <table>
+          <caption>Academic Background</caption>
+          <tr>
+            <th>Degree</th>
+            <th>Institution</th>
+            <th>Year</th>
+          </tr>
+          <tr>
+            <td>B.Tech Information Technology</td>
+            <td>St. Joseph's Institute of Technology, Chennai</td>
+            <td>2023 — 2027</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Contact</h3>
+        <p>📞 +91 8807180128</p>
+        <p>✉️ Email me at <a href="mailto:ramyashree2812@gmail.com">ramyashree2812@gmail.com</a></p>
+        <p>
+          🔗 <a href="#" class="alert-link" onclick="alert('📄 Resume download is disabled!')">Download Resume</a>
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2025 RAMYASHREE BALASUBRAMANIAN</p>
+  </footer>
+
+  <script>
+    // Dark/Light Mode Toggle
+    const toggle = document.getElementById('darkToggle');
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      toggle.textContent = document.body.classList.contains('dark') ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+
+    // Particle Background
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+      }
+      update() { this.x += this.speedX; this.y += this.speedY;
+        if(this.x > canvas.width) this.x = 0;
+        if(this.x < 0) this.x = canvas.width;
+        if(this.y > canvas.height) this.y = 0;
+        if(this.y < 0) this.y = canvas.height;
+      }
+      draw() { ctx.fillStyle = document.body.classList.contains('dark') ? '#fff' : '#0b4f6c'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill(); }
+    }
+
+    function initParticles() { particlesArray = []; for(let i=0;i<100;i++){ particlesArray.push(new Particle()); } }
+    function animateParticles() { ctx.clearRect(0,0,canvas.width,canvas.height); particlesArray.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animateParticles); }
+    initParticles(); animateParticles();
+  </script>
+</body>
+</html>
+
